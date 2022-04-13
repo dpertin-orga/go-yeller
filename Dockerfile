@@ -1,9 +1,14 @@
-FROM golang:latest
+# syntax=docker/dockerfile:1
+
+FROM golang:alpine
 
 WORKDIR /app
 
-ADD . ./
+COPY go.mod ./
+RUN go mod download
 
-RUN go build -v
+COPY *.go ./
+
+RUN go build -v -o go-yeller
 
 CMD ["/app/go-yeller"]
