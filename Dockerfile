@@ -1,14 +1,7 @@
 # syntax=docker/dockerfile:1
 
 FROM golang:alpine
+RUN apk add --update ca-certificates # Certificates for SSL
+ADD ./go-yeller /go/bin/goyeller
+ENTRYPOINT /go/bin/goyeller
 
-WORKDIR /app
-
-COPY go.mod ./
-RUN go mod download
-
-COPY *.go ./
-
-RUN go build -v -o go-yeller
-
-CMD ["/app/go-yeller"]
