@@ -33,7 +33,9 @@ spec:
         {{- range .hosts }}
         - {{ . | quote }}
         {{- end }}
+      {{- if .secretName }}
       secretName: {{ .secretName }}
+      {{- end }}
     {{- end }}
   {{- end }}
   rules:
@@ -42,11 +44,7 @@ spec:
       http:
         paths:
           {{- range .paths }}
-          - path: {{ .path }}
-            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
-            pathType: {{ .pathType }}
-            {{- end }}
-            backend:
+          - backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
                 name: {{ $fullName }}
@@ -56,6 +54,12 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
               {{- end }}
+            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+            pathType: {{ .pathType }}
+            {{- end }}
+            {{- if .path }}
+            path: {{ .path }}
+            {{- end }}
           {{- end }}
     {{- end }}
 {{- end }}
