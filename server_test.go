@@ -1,15 +1,20 @@
 package main
 
 import (
+	"bytes"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
+
+	"github.com/dpertin/go-yeller/utils"
 )
 
 func TestYellingHandler(t *testing.T) {
 	w := httptest.NewRecorder()
-	req := httptest.NewRequest(http.MethodGet, "/yelling?word=hello%20world", nil)
+	word := "hello world"
+	req := httptest.NewRequest(http.MethodGet, "/yelling?word="+strings.ReplaceAll(word, " ", "%20"), nil)
 	yellingHandler(w, req)
 	res := w.Result()
 	defer res.Body.Close()
@@ -17,7 +22,11 @@ func TestYellingHandler(t *testing.T) {
 	if err != nil {
 		t.Errorf("expected error to be nil got %v", err)
 	}
-	if string(data) != "HELLO WORLD§§§" {
-		t.Errorf("expected HELLO WORLD§§§ got %v", string(data))
+
+	expectedBody := new(bytes.Buffer)
+	utils.YellingFormat(word, expectedBody)
+
+	if string(data) != expectedBody.String() {
+		t.Errorf("expected %v, got %v", expectedBody.String(), (data))
 	}
 }

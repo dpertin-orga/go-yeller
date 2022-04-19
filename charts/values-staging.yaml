@@ -1,0 +1,10 @@
+# Default values for go-yeller on staging env.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image:
+  repository: eu.gcr.io/akecld-saas-training/go-yeller
+  pullPolicy: IfNotPresent
+  tag: 0.0.1
+config:
+  port: 8888

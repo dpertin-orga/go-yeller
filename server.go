@@ -6,7 +6,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strings"
+
+	"github.com/dpertin/go-yeller/utils"
 )
 
 func yellingHandler(w http.ResponseWriter, r *http.Request) {
@@ -16,6 +17,7 @@ func yellingHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "invalid request")
 		return
 	}
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	word := query.Get("word")
 	if len(word) == 0 {
 		w.WriteHeader(http.StatusBadRequest)
@@ -23,12 +25,20 @@ func yellingHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, strings.ToUpper(word)+"§§§")
+	utils.YellingFormat(word, w)
+
 }
 
 func main() {
-	port := os.Getenv("PORT")
-	if len(port) == 0 {
+	/*
+		version := os.Getenv("VERSION")
+		if len() == 0 {
+			port = ":8888"
+		}
+	*/
+
+	port := ":" + os.Getenv("PORT")
+	if len(port) == 1 {
 		port = ":8888"
 	}
 
