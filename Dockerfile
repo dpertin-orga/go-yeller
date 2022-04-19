@@ -1,7 +1,15 @@
 # syntax=docker/dockerfile:1
 
 FROM golang:alpine
-RUN apk add --update ca-certificates # Certificates for SSL
-ADD ./go-yeller /go/bin/goyeller
-ENTRYPOINT /go/bin/goyeller
+
+ENV GO111MODULE=on
+
+WORKDIR /go/src/github.com/dpertin-orga/go-yeller/
+
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
+
+COPY *.go ./
+COPY utils ./
 

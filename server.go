@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/dpertin/go-yeller/utils"
+	"github.com/dpertin-orga/go-yeller/utils"
 )
 
 func yellingHandler(w http.ResponseWriter, r *http.Request) {

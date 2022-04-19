@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/dpertin/go-yeller/utils"
+	"github.com/dpertin-orga/go-yeller/utils"
 )
 
 func TestYellingHandler(t *testing.T) {
