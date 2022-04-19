@@ -2,13 +2,31 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 
-	"github.com/dpertin-orga/go-yeller/utils"
+	"github.com/common-nighthawk/go-figure"
 )
+
+var (
+	version string
+)
+
+func YellingFormat(word string, w io.Writer) {
+	fmt.Println("Version2: " + version)
+	fmt.Fprintf(w, "<pre>")
+	figure.Write(w, figure.NewFigure("!!! "+strings.ToUpper(word)+" !!!", "puffy", true))
+	fmt.Fprintf(w, "</pre>")
+	fmt.Fprint(w, "\n<p>"+
+		"Powered by <a href=\"https://github.com/dpertin-orga/go-yeller.git\">"+
+		"go-yeller</a> v"+version+
+		"</p>",
+	)
+}
 
 func yellingHandler(w http.ResponseWriter, r *http.Request) {
 	query, err := url.ParseQuery(r.URL.RawQuery)
@@ -25,17 +43,18 @@ func yellingHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	utils.YellingFormat(word, w)
+	YellingFormat(word, w)
 
 }
 
 func main() {
-	/*
-		version := os.Getenv("VERSION")
-		if len() == 0 {
-			port = ":8888"
+	if len(version) == 0 {
+		version = os.Getenv("VERSION")
+		if len(version) == 0 {
+			version = "0.0.1"
 		}
-	*/
+	}
+	fmt.Println("Version: " + version)
 
 	port := ":" + os.Getenv("PORT")
 	if len(port) == 1 {
