@@ -3,15 +3,12 @@
 # Declare variables to be passed into your templates.
 #
 replicaCount: 1
-
 image:
-  repository: eu.gcr.io/akecld-saas-training/go-yeller
+  repository: eu.gcr.io/akecld-saas-training/go-yeller-production
   pullPolicy: IfNotPresent
   tag: 0.0.1
-
 config:
   port: 8888
-
 ingress:
   hosts:
     - host: goyeller.training.cloud.akeneo.com
@@ -20,4 +17,3 @@ ingress:
   tls:
     - hosts:
         - goyeller.training.cloud.akeneo.com
-
