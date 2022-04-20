@@ -17,7 +17,6 @@ var (
 )
 
 func YellingFormat(word string, w io.Writer) {
-	fmt.Println("Version2: " + version)
 	fmt.Fprintf(w, "<pre>")
 	figure.Write(w, figure.NewFigure("!!! "+strings.ToUpper(word)+" !!!", "puffy", true))
 	fmt.Fprintf(w, "</pre>")

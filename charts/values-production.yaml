@@ -5,19 +5,19 @@
 replicaCount: 1
 
 image:
-  repository: eu.gcr.io/akecld-saas-training/go-yeller-staging
+  repository: eu.gcr.io/akecld-saas-training/go-yeller
   pullPolicy: IfNotPresent
-  tag: 0.0.1-31b7410ebfe101fa9578f83bf2b4d5c2e470366b
+  tag: 0.0.1
 
 config:
   port: 8888
 
 ingress:
   hosts:
-    - host: goyeller-staging.training.cloud.akeneo.com
+    - host: goyeller.training.cloud.akeneo.com
       paths:
         - pathType: ImplementationSpecific
   tls:
     - hosts:
-        - goyeller-staging.training.cloud.akeneo.com
+        - goyeller.training.cloud.akeneo.com
 
