@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   repository: eu.gcr.io/akecld-saas-training/go-yeller-production
   pullPolicy: IfNotPresent
-  tag: 0.0.2
+  tag: 0.0.3
 config:
   port: 8888
 ingress:
