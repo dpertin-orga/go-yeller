@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   repository: eu.gcr.io/akecld-saas-training/go-yeller-staging
   pullPolicy: IfNotPresent
-  tag: 0.0.3-c7b84747b511cd9c7435f31ecd1f2e42113376f1
+  tag: 0.0.3-44ca2ce78da92705ac7c4e50da7e2dafb7e0de5c
 config:
   port: 8888
 ingress:
