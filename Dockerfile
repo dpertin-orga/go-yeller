@@ -11,6 +11,7 @@ COPY go.sum ./
 RUN go mod download
 
 COPY *.go ./
+COPY utils ./utils
 
 RUN CGO_ENABLED=0 GOOS=linux go build \
     -a -installsuffix cgo -o /go/bin/goyeller .

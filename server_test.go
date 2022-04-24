@@ -7,6 +7,8 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/dpertin-orga/go-yeller/utils"
 )
 
 func TestYellingHandler(t *testing.T) {
@@ -22,7 +24,7 @@ func TestYellingHandler(t *testing.T) {
 	}
 
 	expectedBody := new(bytes.Buffer)
-	YellingFormat(word, expectedBody)
+	utils.YellingFormat(word, version, expectedBody)
 
 	if string(data) != expectedBody.String() {
 		t.Errorf("expected %v, got %v", expectedBody.String(), (data))
